@@ -31,9 +31,10 @@ if (saved) html.setAttribute('data-theme', saved);
 document.getElementById('streakDays').textContent = RUNNER_DATA.streakDays;
 document.getElementById('lastRun').textContent = RUNNER_DATA.lastRun;
 
+
 function openRunner() {
   const overlay = document.getElementById('runnerOverlay');
-  document.getElementById('runnerFrame').src = 'runner.html';
+  document.getElementById('runnerFrame').src = 'html/runner.html';
   overlay.classList.remove('hidden');
 }
 
@@ -43,9 +44,10 @@ function closeRunner() {
   document.getElementById('runnerFrame').src = '';
 }
 
+
 function openBooks() {
   const overlay = document.getElementById('booksOverlay');
-  document.getElementById('booksFrame').src = 'books.html';
+  document.getElementById('booksFrame').src = 'html/books.html';
   overlay.classList.remove('hidden');
 }
 
