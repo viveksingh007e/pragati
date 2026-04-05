@@ -1,3 +1,88 @@
+.istqb-header h2 {
+  margin-bottom: 0;
+  border-bottom: none !important;
+  padding-bottom: 0;
+  font-size: 2rem;
+  color: var(--accent);
+}
+.istqb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.istqb-header h2 {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+  font-size: 2rem;
+}
+
+.istqb-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+
+.istqb-icon {
+  font-size: 3rem;
+}
+
+.istqb-number {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(144, 238, 144, 0.3);
+}
+
+.istqb-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.istqb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.istqb-header h2 {
+  margin-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
+  font-size: 2rem;
+}
+
+.istqb-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+
+.istqb-icon {
+  font-size: 3rem;
+}
+
+.istqb-number {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(144, 238, 144, 0.3);
+}
+
+.istqb-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 :root {
   --bg: #f4f6f9;
   --card-bg: #ffffff;
