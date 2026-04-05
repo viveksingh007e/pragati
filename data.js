@@ -1,5 +1,4 @@
 const RUNNER_DATA = {
   streakDays: 37,
-  lastRun: "Last Run: 4th April, 2026",
-  startedOn: "1st February, 2026"
+  lastRun: "Last Run: April 4, 2026 | Deadline : June 1, 2026"
 };

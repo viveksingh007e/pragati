@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="dashboard">
-    <a href="runner.html" target="_blank" class="section runner-card" style="text-decoration:none;color:inherit;cursor:pointer;">
+    <div class="section runner-card" style="cursor:pointer;" onclick="openRunner()">
       <div class="runner-header">
         <h2>Runner</h2>
         <div class="streak">
@@ -17,24 +17,47 @@
           <span class="streak-label">days</span>
         </div>
       </div>
-      <p id="lastRun">Last Run: 4th April, 2026</p>
+      <p id="lastRun">Last Run: April 4, 2026 | Deadline : June 1, 2026</p>
      
-    </a>
-    <div class="section">
-      <h2>Acharya</h2>
-      <p>Monitor teaching progress, course materials, and student engagement.</p>
     </div>
-    <div class="section">
-      <h2>Section 3</h2>
-      <p>Placeholder for additional content and insights.</p>
+
+    <!-- Runner Overlay -->
+    <div id="runnerOverlay" class="overlay hidden">
+      <button class="overlay-close" onclick="closeRunner()">&times;</button>
+      <iframe id="runnerFrame" class="overlay-frame"></iframe>
+    </div>
+
+    <div class="section acharya-card">
+      <div class="acharya-header">
+        <h2>Acharya</h2>
+        <div class="acharya-stat">
+          <span class="acharya-icon">&#128214;</span>
+          <span class="acharya-number">54</span>
+          <span class="acharya-label">/180</span>
+        </div>
+      </div>
+      <p>Reading @ 2 pg/day | Deadline: June 7, 2026</p>
+    </div>
+    <div class="section booksummary-card" style="cursor:pointer;" onclick="openBooks()">
+      <div class="booksummary-header">
+        <h2>Books</h2>
+        <div class="booksummary-stat">
+          <span class="booksummary-icon">&#127911;</span>
+          <span class="booksummary-number">8</span>
+          <span class="booksummary-label">books</span>
+        </div>
+      </div>
+      <p>Kamayani by Jaishankar Prasad - March 28, 2026</p>
+    </div>
+
+    <!-- Books Overlay -->
+    <div id="booksOverlay" class="overlay hidden">
+      <button class="overlay-close" onclick="closeBooks()">&times;</button>
+      <iframe id="booksFrame" class="overlay-frame"></iframe>
     </div>
   </div>
 
   <script src="data.js"></script>
   <script src="script.js"></script>
-  <script>
-    document.getElementById('streakDays').textContent = RUNNER_DATA.streakDays;
-    document.getElementById('lastRun').textContent = RUNNER_DATA.lastRun;
-  </script>
 </body>
 </html>
