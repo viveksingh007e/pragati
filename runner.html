@@ -3,30 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pragati Dashboard</title>
+  <title>Runner - Run Log</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="runner.css">
 </head>
 <body>
-  <div class="dashboard">
-    <a href="runner.html" target="_blank" class="section runner-card" style="text-decoration:none;color:inherit;cursor:pointer;">
+  <div class="runner-page">
+    <div class="section">
       <div class="runner-header">
         <h2>Runner</h2>
         <div class="streak">
           <span class="streak-trophy">&#127942;</span>
-          <span class="streak-number" id="streakDays">37</span>
+          <span class="streak-number" id="streakDays">--</span>
           <span class="streak-label">days</span>
         </div>
       </div>
-      <p id="lastRun">Last Run: 4th April, 2026</p>
-     
-    </a>
-    <div class="section">
-      <h2>Acharya</h2>
-      <p>Monitor teaching progress, course materials, and student engagement.</p>
+      <p id="lastRun">Last Run: --</p><br>
+      <p>Started On: 1st February, 2026</p>
+      <p>Desire: Run 15 minute daily effortlessly</p>
+      <p>Deadline: 1st June, 2026</p>
+      
     </div>
+
     <div class="section">
-      <h2>Section 3</h2>
-      <p>Placeholder for additional content and insights.</p>
+      <h2>Run History Logs:</h2>
+      <div id="runHistory">
+        <p class="empty-state">4th April, 2026: these days i am running 11 minutes. It is so satisfying. I take different routes and these 11 minutes are really long. I was thinking of running in the park beside that Wekend Bar. It will be new and fun.</p>
+      </div>
     </div>
   </div>
 
@@ -36,5 +39,6 @@
     document.getElementById('streakDays').textContent = RUNNER_DATA.streakDays;
     document.getElementById('lastRun').textContent = RUNNER_DATA.lastRun;
   </script>
+  <script src="runner.js"></script>
 </body>
 </html>
