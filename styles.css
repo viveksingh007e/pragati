@@ -350,3 +350,29 @@ header h1 {
   .section h2 { font-size: 1rem; }
   .section p { font-size: 0.9rem; }
 }
+/* Bottom archive container */
+.archive-bottom {
+  margin-top: 140px;
+  margin-right: 40px;
+  display: flex;
+  justify-content: right;
+}
+
+/* Small square card */
+.archive-mini-card {
+  width: 64px;
+  height: 64px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Archive icon */
+.archive-icon {
+  font-size: 28px;
+}
