@@ -1,45 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Books - Reading Log</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-  <div class="books-page">
+  <div class="runner-page">
     <div class="section">
-      <div class="booksummary-header">
+      <div class="runner-header">
         <h2>Books</h2>
-        <div class="booksummary-stat">
-          <span class="booksummary-icon">&#127911;</span>
-          <span class="booksummary-number">8</span>
-          <span class="booksummary-label">books</span>
+        <div class="streak">
+          <span class="streak-trophy">&#127911;</span>
+          <span class="streak-number">8</span>
+          <span class="streak-label">books</span>
         </div>
       </div>
+
+      <p>Started On: February 1, 2026</p>
+      <p>Desire: Run 15 minute daily effortlessly</p>
+      <p>Deadline: June 1, 2026</p>
     </div>
     <div class="section">
       <h2>Books Read:</h2>
-      <ol class="books-list" reversed>
-        <li><strong>A Suitable Boy</strong> — Vikram Seth <span class="book-date">April 5, 2026</span></li>
-        <li><strong>Kamayani</strong> — Jaishankar Prasad <span class="book-date">March 28, 2026</span></li>
-        <li><strong>Mahashweta</strong> — Sudha Murthy</li>
-        <li><strong>Dollar Bahu</strong> — Sudha Murthy</li>
-        <li><strong>TAMAS</strong> — Bhisma Sahni</li>
-        <li><strong>Sooraj ka Satva Ghoda</strong> — Dharamveer Bharti</li>
-        <li><strong>Titli</strong> — Jaishankar Prasad</li>
-        <li><strong>Mrichhakatika</strong> — Sudrak</li>
+
+      <ol reversed style="margin-left: 15px;">
+        <li>A Suitable Boy — Vikram Seth <span class="book-date">April 5, 2026</span></li>
+        <li>Kamayani — Jaishankar Prasad <span class="book-date">March 28, 2026</span></li>
+        <li>Mahashweta — Sudha Murthy</li>
+        <li>Dollar Bahu — Sudha Murthy</li>
+        <li>TAMAS — Bhisma Sahni</li>
+        <li>Sooraj ka Satva Ghoda — Dharamveer Bharti</li>
+        <li>Titli — Jaishankar Prasad</li>
+        <li>Mrichhakatika — Sudrak</li>
       </ol>
+
     </div>
   </div>
 
-  <script src="data.js"></script>
+  
   <script src="script.js"></script>
-  <script>
-    // Request fullscreen on load if not already
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().catch(() => {});
-    }
-  </script>
+  
 </body>
+
 </html>
