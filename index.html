@@ -1,73 +1,77 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pragati</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀️</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☀️</text></svg>">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="dashboard">
+
+    <!-- RUNNER -->
     <div class="section runner-card" style="cursor:pointer;" onclick="openRunner()">
       <div class="runner-header">
         <h2>Runner</h2>
         <div class="streak">
-            <span class="streak-trophy">&#127942;</span>
-            <span class="streak-number">39</span>
+          <span class="streak-trophy">&#127939;</span>
+          <span class="streak-number">39</span>
           <span class="streak-label">days</span>
         </div>
       </div>
       <p>Last Run: April 10, 2026 | Deadline : June 1, 2026</p>
-     
+
     </div>
 
-    <!-- Runner Overlay -->
-    <div id="runnerOverlay" class="overlay hidden">
-      <button class="overlay-close" onclick="closeRunner()">&times;</button>
-      <iframe id="runnerFrame" class="overlay-frame"></iframe>
-    </div>
-
-  
+<!-- ACHRAYA -->
     <div class="section acharya-card">
       <div class="acharya-header">
         <h2>Acharya</h2>
         <div class="acharya-stat">
-            <span class="acharya-icon">&#128214;</span>
-            <span class="acharya-number">65</span>
+          <span class="acharya-icon">&#128214;</span>
+          <span class="acharya-number">65</span>
           <span class="acharya-label">/180</span>
         </div>
       </div>
       <p>Reading @ 2 pg/day | Deadline: June 7, 2026</p>
     </div>
+
+    <!-- BOOKS -->
     <div class="section booksummary-card" style="cursor:pointer;" onclick="openBooks()">
       <div class="booksummary-header">
         <h2>Books</h2>
         <div class="booksummary-stat">
-            <span class="booksummary-icon">&#127911;</span>
-            <span class="booksummary-number">8</span>
+          <span class="booksummary-icon">&#127911;</span>
+          <span class="booksummary-number">8</span>
           <span class="booksummary-label">books</span>
         </div>
       </div>
       <p>A Suitable Boy by Vikram Seth - April 5, 2026</p>
     </div>
 
-    <!-- Books Overlay -->
-    <div id="booksOverlay" class="overlay hidden">
-      <button class="overlay-close" onclick="closeBooks()">&times;</button>
-      <iframe id="booksFrame" class="overlay-frame"></iframe>
+    <!-- BOOKS -->
+    <div class="section booksummary-card" style="cursor:pointer;" onclick="openFulfilments()">
+      <div class="booksummary-header">
+        <h2>Fulfilments</h2>
+        <div class="booksummary-stat">
+          <span class="booksummary-icon">&#127942;</span>
+          <span class="booksummary-number">1</span>
+          <span class="booksummary-label">Project</span>
+        </div>
+      </div>
+      <p>Last Completed Journey: April 10, 2026: ISTQB</p>
     </div>
 
- 
   </div>
-    <!-- Archive Button (Bottom) -->
-<div class="archive-bottom">
-  <a href="archive.html" class="section archive-mini-card" title="Archive">
-    <span class="archive-icon">&#128230;</span>
-  </a>
-</div>
+
+
 
   <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
+
 </html>

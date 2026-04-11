@@ -6,23 +6,6 @@ function toggleTheme() {
   localStorage.setItem('theme', next);
 }
 
-document.addEventListener('keydown', (e) => {
-  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-  if (e.key === 't' || e.key === 'T') {
-    toggleTheme();
-  }
-  if (e.key === 'f' || e.key === 'F') {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen();
-    } else {
-      document.exitFullscreen();
-    }
-  }
-  if (e.key === ' ') {
-    closeRunner();
-    closeBooks();
-  }
-});
 
 const saved = localStorage.getItem('theme');
 if (saved) html.setAttribute('data-theme', saved);
@@ -31,28 +14,15 @@ if (saved) html.setAttribute('data-theme', saved);
 document.getElementById('streakDays').textContent = RUNNER_DATA.streakDays;
 document.getElementById('lastRun').textContent = RUNNER_DATA.lastRun;
 
-
 function openRunner() {
-  const overlay = document.getElementById('runnerOverlay');
-  document.getElementById('runnerFrame').src = 'html/runner.html';
-  overlay.classList.remove('hidden');
+  window.location.href = 'runner.html';
+
 }
-
-function closeRunner() {
-  const overlay = document.getElementById('runnerOverlay');
-  overlay.classList.add('hidden');
-  document.getElementById('runnerFrame').src = '';
-}
-
-
 function openBooks() {
-  const overlay = document.getElementById('booksOverlay');
-  document.getElementById('booksFrame').src = 'html/books.html';
-  overlay.classList.remove('hidden');
+  window.location.href = 'books.html';
+}
+function openFulfilments(){
+  window.location.href = 'fulfilments.html';
 }
 
-function closeBooks() {
-  const overlay = document.getElementById('booksOverlay');
-  overlay.classList.add('hidden');
-  document.getElementById('booksFrame').src = '';
-}
+// Removed overlay logic for Runner and Books. Now handled by direct navigation in index.html

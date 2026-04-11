@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Runner - Run Log</title>
-  <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="runner.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="runner-page">
@@ -13,18 +12,14 @@
       <div class="runner-header">
         <h2>Runner</h2>
         <div class="streak">
-          <span class="streak-trophy">&#127942;</span>
-          
-          <span class="streak-label">Woooo Hooooo</span>
+          <span class="streak-trophy">&#127939;</span>
+          <span class="streak-label">Woooo Hooooo YAYYYYY !</span>
         </div>
       </div>
-      
       <p>Started On: February 1, 2026</p>
       <p>Desire: Run 15 minute daily effortlessly</p>
       <p>Deadline: June 1, 2026</p>
-      
     </div>
-
     <div class="section">
       <h2>Run History Logs:</h2>
       <div id="runHistory">
@@ -35,11 +30,15 @@
     </div>
   </div>
 
-  <script src="../data.js"></script>
-  <script src="../script.js"></script>
+  <script src="data.js"></script>
+  <script src="script.js"></script>
   <script>
     document.getElementById('streakDays').textContent = RUNNER_DATA.streakDays;
     document.getElementById('lastRun').textContent = RUNNER_DATA.lastRun;
+    // Request fullscreen on load if not already
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    }
   </script>
   <script src="runner.js"></script>
 </body>
