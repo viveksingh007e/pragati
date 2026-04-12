@@ -1,3 +1,18 @@
+function showDotsTooltip(event) {
+  event.stopPropagation();
+  const btn = event.currentTarget;
+  const tooltip = btn.nextElementSibling;
+  if (!tooltip) return;
+  tooltip.classList.remove('tooltip-hidden');
+  // Hide on next click anywhere
+  function hideTooltip() {
+    tooltip.classList.add('tooltip-hidden');
+    document.removeEventListener('click', hideTooltip);
+  }
+  setTimeout(() => {
+    document.addEventListener('click', hideTooltip);
+  }, 0);
+}
 const html = document.documentElement;
 
 function toggleTheme() {
