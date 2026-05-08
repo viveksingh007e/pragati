@@ -23,3 +23,6 @@ function openFulfilments(){
 function openISTQB(){
   window.location.href = 'ContentFiles/istqb.html';
 }
+function openFlute(){
+  window.location.href = 'ContentFiles/flute.html';
+}
