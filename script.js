@@ -33,6 +33,9 @@ function openRunner() {
   window.location.href = 'runner.html';
 
 }
+function openAcharya() {
+  window.location.href = 'ContentFiles/acharya.html';
+}
 function openBooks() {
   window.location.href = 'books.html';
 }

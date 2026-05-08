@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Runner - Run Log</title>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127939;</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="runner-page">
+    <div class="section">
+      <div class="runner-header">
+        <h2>Acharya</h2>
+        <div class="streak">
+          <span class="streak-trophy">&#129496;</span>
+          <span class="streak-label">READING HIM IS MEDITATION !</span>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Thoughts:</h2>
+      <p>
+
+        update: I never thought, papa will also like the view of Acharya Prashant. He told me casually that there is a
+        guy called prashant,
+        and he talks sensible. I smiled within, and this made me so confortable. I said the same things all my life, but
+        he didn't listen :)
+        <br />
+        I had never thought that this book will revolutionize my thoughts.
+        It is the most contemporary, thought provoking, guiding light that one can have in Life !
+        Greateful to Acharya Ji
+      </p>
+
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('streakDays').textContent = RUNNER_DATA.streakDays;
+    document.getElementById('lastRun').textContent = RUNNER_DATA.lastRun;
+    // Request fullscreen on load if not already
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => { });
+    }
+  </script>
+
+</body>
+
+</html>
