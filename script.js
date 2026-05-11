@@ -26,3 +26,6 @@ function openISTQB(){
 function openFlute(){
   window.location.href = 'ContentFiles/flute.html';
 }
+function openExercise(){
+  window.location.href = 'ContentFiles/exercise.html';
+}

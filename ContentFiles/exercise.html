@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#129496;</text></svg>">
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="runner-page">
+        <div class="section">
+            <div class="runner-header">
+                <h2>EXERCISE</h2>
+                <div class="streak">
+                    <span class="streak-trophy">&#127947;</span>
+                    <span class="streak-label">CONSISTENCY BUILDS STRENGTH</span>
+                </div>
+            </div>
+            <p>[April: 8.5/31]</p>
+        </div>
+
+        <div class="section">
+            <div class="day-pill" id="activeDay">CORE</div>
+            <div class="exercise-container">
+                <button class="circle-btn" id="prevDayBtn" aria-label="Show previous day">&#8592;</button>
+                <ul class="exercise-list" id="exerciseItems"></ul>
+                <button class="circle-btn" id="nextDayBtn" aria-label="Show next day">&#8594;</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../data.js"></script>
+    <script src="../script.js"></script>
+    <script>
+        const dayPlans = [
+            {
+                type: "FULL CARDIO",
+                items: [
+                    "High Knees - 2 min",
+                    "8-minute leg-raise jumping",
+                    "Mountain Climbers - 3 x 40 sec",
+                    "Slow Stretching - 5 min"
+                ]
+            },
+            {
+                type: "PULL",
+                items: [
+                    "Pull-Ups (assisted if needed) - 3 x max",
+                    "One-arm Dumbbell Rows (4 kg) - 3 x 12",
+                    "Dumbbell Pullovers (4 kg) - 3 x 15",
+                    "Bicep Curl (2 or 4 kg) - 3 x 10",
+                    "Hammer Curl (4 kg) - 3 x 10",
+                    "Rear Delt Raises (2 kg) - 3 x 15",
+                    "Farmer's Carry (4 kg each hand) - 2 rounds x 2 min"
+                ]
+            },
+            {
+                type: "SURYA NAMASKAR",
+                items: [
+                    "Surya Namaskar x 10",
+                    "Deep stretching for hips, back, hamstrings"
+                ]
+            },
+            {
+                type: "PUSH+CORE",
+                items: [
+                    "Floor Dumbbell Press - 4 x 12",
+                    "Shoulder Press (4 kg) - 3 x 10",
+                    "Lateral Raises (2 kg) - 3 x 15",
+                    "Tricep Extensions (4 kg) - 3 x 12",
+                    "Incline Pushups - 3 x 10",
+                    "Plank - 3 x 45 sec"
+                ]
+            },
+            {
+                type: "UPPER/LIGHT FULL BODY",
+                items: [
+                    "Pushups - 3 x 12",
+                    "Bent-over Row (4 kg) - 3 x 12",
+                    "Shoulder Press (2 kg) - 3 x 15",
+                    "Dead Hang on Pull-up Bar - 2 x 30 sec",
+                    "Reverse Crunches - 3 x 15"
+                ]
+            },
+            {
+                type: "LEGS + GLUTES + CORE",
+                items: [
+                    "Goblet Squat (4 kg) - 3 x 12",
+                    "Dumbbell Lunges - 3 x 7 each leg",
+                    "Dumbbell Romanian Deadlift - 3 x 12",
+                    "Glute Bridges with Dumbbells - 3 x 15",
+                    "Calf Raises - 3 x 20",
+                    "Side-Lying Hip Abductions - 3 x 10 each side",
+                    "Plank-to-Pushup - 3 x 10"
+                ]
+            },
+            {
+                type: "REST",
+                items: [
+                    "Rest"
+                ]
+            }
+        ];
+
+        let currentDayIndex = 0;
+
+        const activeDayEl = document.getElementById("activeDay");
+        const exerciseItemsEl = document.getElementById("exerciseItems");
+        const prevDayBtn = document.getElementById("prevDayBtn");
+        const nextDayBtn = document.getElementById("nextDayBtn");
+
+        function renderDayAgenda() {
+            const currentPlan = dayPlans[currentDayIndex];
+            activeDayEl.textContent = currentPlan.type;
+
+            exerciseItemsEl.innerHTML = "";
+            currentPlan.items.forEach((item) => {
+                const listItem = document.createElement("li");
+                listItem.textContent = item;
+                exerciseItemsEl.appendChild(listItem);
+            });
+        }
+
+        prevDayBtn.addEventListener("click", () => {
+            currentDayIndex = (currentDayIndex - 1 + dayPlans.length) % dayPlans.length;
+            renderDayAgenda();
+        });
+
+        nextDayBtn.addEventListener("click", () => {
+            currentDayIndex = (currentDayIndex + 1) % dayPlans.length;
+            renderDayAgenda();
+        });
+
+        renderDayAgenda();
+
+        const streakDaysEl = document.getElementById("streakDays");
+        const lastRunEl = document.getElementById("lastRun");
+
+        if (streakDaysEl && typeof RUNNER_DATA !== "undefined") {
+            streakDaysEl.textContent = RUNNER_DATA.streakDays;
+        }
+
+        if (lastRunEl && typeof RUNNER_DATA !== "undefined") {
+            lastRunEl.textContent = RUNNER_DATA.lastRun;
+        }
+    </script>
+
+</body>
+
+</html>
