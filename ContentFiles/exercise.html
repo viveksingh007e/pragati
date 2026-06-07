@@ -122,6 +122,16 @@
             currentPlan.items.forEach((item) => {
                 const listItem = document.createElement("li");
                 listItem.textContent = item;
+                listItem.addEventListener("click", function() {
+                    // Toggle selection: remove from others, toggle on this one
+                    const allItems = exerciseItemsEl.querySelectorAll("li");
+                    allItems.forEach(li => {
+                        if (li !== this) {
+                            li.classList.remove("selected");
+                        }
+                    });
+                    this.classList.toggle("selected");
+                });
                 exerciseItemsEl.appendChild(listItem);
             });
         }

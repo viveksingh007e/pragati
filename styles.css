@@ -189,6 +189,13 @@ header h1 {
   color: var(--text);
   background: rgba(144, 238, 144, 0.25);
   text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.exercise-list li.selected {
+  background-color: #776709;
+  border-color: #FFA500;
 }
 
 @media (max-width: 1024px) {
