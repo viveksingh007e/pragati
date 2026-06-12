@@ -1,8 +1,6 @@
 const html = document.documentElement;
 console.log("Script loaded ✅");
 // Dashboard data binding
-document.getElementById('streakDays').textContent = RUNNER_DATA.streakDays;
-document.getElementById('lastRun').textContent = RUNNER_DATA.lastRun;
 
 function updateXerDays() {
   console.log("Func loaded ✅");
