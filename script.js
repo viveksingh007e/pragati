@@ -4,9 +4,18 @@ const html = document.documentElement;
 document.getElementById('streakDays').textContent = RUNNER_DATA.streakDays;
 document.getElementById('lastRun').textContent = RUNNER_DATA.lastRun;
 
+function updateXerDays() {
+  let text = document.getElementById("daysXer").textContent;
+  let numbers = text.match(/\d+/g).map(Number); // extract all integers
+  let dayCount = numbers.length; // count them
+  document.getElementById("streak-xerCount").textContent = dayCount; // update span
+}
+
+// Run once on page load
+updateXerDays();
+
 function openRunner() {
   window.location.href = 'runner.html';
-
 }
 function openAcharya() {
   window.location.href = 'ContentFiles/acharya.html';
