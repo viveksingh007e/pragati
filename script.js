@@ -8,7 +8,7 @@ function updateXerDays() {
   let text = document.getElementById("daysXer").textContent;
   let numbers = text.match(/\d+/g).map(Number); // extract all integers
   let dayCount = numbers.length; // count them
-  document.getElementById("streak-xerCount").textContent = dayCount; // update span
+  document.getElementById("xerCount").textContent = dayCount; // update span
 }
 
 // Run once on page load
