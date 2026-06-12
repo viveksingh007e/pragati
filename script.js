@@ -10,7 +10,7 @@ function updateXerDays() {
   let dayCount = numbers.length; // count them
   document.getElementById("xerCount").textContent = dayCount; // update span
 }
-
+document.addEventListener("DOMContentLoaded", updateXerDays);
 // Run once on page load
 updateXerDays();
 
