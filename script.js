@@ -1,12 +1,9 @@
 const html = document.documentElement;
-console.log("Script loaded ✅");
 // Dashboard data binding
 
 function updateXerDays() {
-  console.log("Func loaded ✅");
 
   let el = document.getElementById("daysXer");
-  console.log("daysXer element:", el);
 
   if (!el) {
     console.log("Element NOT found ❌");
