@@ -1,13 +1,20 @@
 const html = document.documentElement;
-
+console.log("Script loaded ✅");
 // Dashboard data binding
 document.getElementById('streakDays').textContent = RUNNER_DATA.streakDays;
 document.getElementById('lastRun').textContent = RUNNER_DATA.lastRun;
 
 function updateXerDays() {
+  console.log("Func loaded ✅");
 
   let el = document.getElementById("daysXer");
-  if (!el) return;
+  console.log("daysXer element:", el);
+
+  if (!el) {
+    console.log("Element NOT found ❌");
+    return;
+  }
+
   let text = document.getElementById("daysXer").textContent;
   let numbers = text.match(/\d+/g).map(Number); // extract all integers
   let dayCount = numbers.length; // count them
