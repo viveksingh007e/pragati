@@ -13,11 +13,11 @@ function updateDays() {
   let numbersEx = textEx.match(/\d+/g).map(Number); // extract all integers
   let numbersRun = textRun.match(/\d+/g).map(Number); // extract all integers
 
-  let dayCountEx = numbers.length; 
-  let dayCountRun = numbers.length; 
+  let dayCountEx = numbersEx.length; 
+  let dayCountRun = numbersRun.length; 
 
   document.getElementById("xerCount").textContent = dayCountEx;
-  document.getElementById("xerCount").textContent = dayCountRun; 
+  document.getElementById("runCount").textContent = dayCountRun; 
 }
 
 document.addEventListener("DOMContentLoaded", updateDays);
