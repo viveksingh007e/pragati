@@ -5,19 +5,20 @@ function updateDays() {
 
   let eX = document.getElementById("daysXer");
   let eR = document.getElementById("daysRun");
-  
+
+  if (!eX || !eR) return; // safety check
 
   let textEx = document.getElementById("daysXer").textContent;
   let textRun = document.getElementById("daysRun").textContent;
-  
+
   let numbersEx = textEx.match(/\d+/g).map(Number); // extract all integers
   let numbersRun = textRun.match(/\d+/g).map(Number); // extract all integers
 
-  let dayCountEx = numbersEx.length; 
-  let dayCountRun = numbersRun.length; 
+  let dayCountEx = numbersEx.length;
+  let dayCountRun = numbersRun.length;
 
   document.getElementById("xerCount").textContent = dayCountEx;
-  document.getElementById("runCount").textContent = dayCountRun; 
+  document.getElementById("runCount").textContent = dayCountRun;
 }
 
 document.addEventListener("DOMContentLoaded", updateDays);
