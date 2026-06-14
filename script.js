@@ -1,22 +1,26 @@
 const html = document.documentElement;
 // Dashboard data binding
 
-function updateXerDays() {
+function updateDays() {
 
-  let el = document.getElementById("daysXer");
+  let eX = document.getElementById("daysXer");
+  let eR = document.getElementById("daysRun");
+  
 
-  if (!el) {
-    console.log("Element NOT found ❌");
-    return;
-  }
+  let textEx = document.getElementById("daysXer").textContent;
+  let textRun = document.getElementById("daysRun").textContent;
+  
+  let numbersEx = textEx.match(/\d+/g).map(Number); // extract all integers
+  let numbersRun = textRun.match(/\d+/g).map(Number); // extract all integers
 
-  let text = document.getElementById("daysXer").textContent;
-  let numbers = text.match(/\d+/g).map(Number); // extract all integers
-  let dayCount = numbers.length; // count them
-  document.getElementById("xerCount").textContent = dayCount; // update span
+  let dayCountEx = numbers.length; 
+  let dayCountRun = numbers.length; 
+
+  document.getElementById("xerCount").textContent = dayCountEx;
+  document.getElementById("xerCount").textContent = dayCountRun; 
 }
 
-document.addEventListener("DOMContentLoaded", updateXerDays);
+document.addEventListener("DOMContentLoaded", updateDays);
 
 function openRunner() {
   window.location.href = 'runner.html';
