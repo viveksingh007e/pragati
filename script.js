@@ -13,6 +13,8 @@ function updateDays() {
 
   document.getElementById("xerCount").textContent = numbersEx.length;
   document.getElementById("runCount").textContent = numbersRun.length + 55;
+  document.getElementById("runMonCount").textContent = numbersRun.length;
+  
 }
 
 document.addEventListener("DOMContentLoaded", updateDays);
