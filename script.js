@@ -43,3 +43,6 @@ function openFlute() {
 function openExercise() {
   window.location.href = 'ContentFiles/exercise.html';
 }
+function openWhiteboard() {
+  window.location.href = 'https://www.tldraw.com/f/9BBslhpFsd5ha0Wia0XS2?d=v-803.-401.2839.1341.page';
+}
