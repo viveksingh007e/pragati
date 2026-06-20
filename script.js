@@ -14,7 +14,7 @@ function updateDays() {
   document.getElementById("xerCount").textContent = numbersEx.length;
   document.getElementById("runCount").textContent = numbersRun.length + 55;
   document.getElementById("runMonCount").textContent = numbersRun.length;
-  
+
 }
 
 document.addEventListener("DOMContentLoaded", updateDays);
@@ -44,9 +44,6 @@ function openExercise() {
   window.location.href = 'ContentFiles/exercise.html';
 }
 function openWhiteboard() {
-  window.open(
-    'https://www.tldraw.com/f/9BBslhpFsd5ha0Wia0XS2?d=v-803.-401.2839.1341.page',
-    '_blank',
-    'noopener,noreferrer'
-  );
+  const win = window.open('', '_blank');
+  win.location.href = 'https://www.tldraw.com/f/9BBslhpFsd5ha0Wia0XS2?d=v-803.-401.2839.1341.page';
 }
