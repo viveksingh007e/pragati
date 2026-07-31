@@ -13,7 +13,7 @@ function updateDays() {
   let numbersRun = eR.textContent.match(/\d+/g) || [];
 
   document.getElementById("xerCount").textContent = numbersEx.length;
-  document.getElementById("runCount").textContent = numbersRun.length + 61;
+  document.getElementById("runCount").textContent = numbersRun.length + 68;
   document.getElementById("runMonCount").textContent = numbersRun.length;
 
 }
