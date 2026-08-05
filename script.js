@@ -49,7 +49,7 @@ function openWhiteboard() {
   win.location.href = 'https://www.tldraw.com/f/9BBslhpFsd5ha0Wia0XS2?d=v-803.-401.2839.1341.page';
 }
 function openChallenges() {
-  win.location.href = 'ContentFiles/challenges.html';
+  window.location.href= 'ContentFiles/challenges.html';
 }
 
 
