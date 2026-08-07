@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Challenges !</title>
   <link rel="icon"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#129496;</text></svg>">
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
   <link rel="stylesheet" href="../styles.css">
 </head>
 
@@ -16,7 +16,7 @@
       <div class="runner-header">
         <h2>Challenges !</h2>
         <div class="streak">
-          <span class="streak-trophy">&#128214;</span>
+          <span class="streak-trophy">🏀</span>
           <span class="streak-label">PUSH to the LIMIT | Started : 30-JULY-2026</span>
         </div>
       </div>
@@ -28,46 +28,38 @@
       <div style="display:flex; gap:30px;">
 
         <div style="flex:1;">
-          <h3>Breathe</h3>
-          <div style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
-            <ol reversed>
-              <li>0:50</li>
-              <li>0:41</li>
-            </ol>
+          <h3>Plank</h3>
+          <canvas id="plank-chart" style="width:100%; height:320px; display:block;"></canvas>
+          <div id="plank-best" style="text-align:center; font-size:1.1rem; font-weight:600; margin-top:6px; color:var(--accent);"></div>
+          <div style="display:none;">
+            <ul id="plank-list">
+              <li>7/8/26 - 02:03</li>
+              <li>6/8/26 - 02:30</li>
+              <li>5/8/26 - 02:10</li>
+              <li>4/8/26 - 01:53</li>
+              <li>3/8/26 - 01:36</li>
+              <li>2/8/26 - 01:30</li>
+              <li>1/8/26 - 01:18</li>
+              <li>31/7/26 - 01:56</li>
+            </ul>
           </div>
         </div>
 
         <div style="flex:1;">
-          <h3>Plank: Goal 5 Min</h3>
-          <div style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
-            <ol reversed>
-
-              <li>02:03 - 
-              <li>02:20 - 02:30</li>
-              <li>02:00 - 02:10</li>
-              <li>01:53</li>
-              <li>01:36</li>
-              <li>01:30</li>
-              <li>01:18</li>
-              <li>01:56 (wrong way)</li>
-
-            </ol>
-          </div>
-        </div>
-
-        <div style="flex:1;">
-          <h3>Push Ups: Goal 20 in a row</h3>
-          <div style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
-            <ol reversed>
-              <li>10 - </li>
-              <li>8 - 8</li>
-              <li>9 - 7</li>
-              <li>10</li>
-              <li>10</li>
-              <li>10</li>
-              <li>8</li>
-              <li>6</li>
-            </ol>
+          <h3>Push Ups</h3>
+          <canvas id="pushup-chart" style="width:100%; height:320px; display:block;"></canvas>
+          <div id="pushup-best" style="text-align:center; font-size:1.1rem; font-weight:600; margin-top:6px; color:var(--accent);"></div>
+          <div style="display:none;">
+            <ul id="pushup-list">
+              <li>7/8/26 - 10</li>
+              <li>6/8/26 - 8</li>
+              <li>5/8/26 - 9</li>
+              <li>4/8/26 - 10</li>
+              <li>3/8/26 - 10</li>
+              <li>2/8/26 - 10</li>
+              <li>1/8/26 - 8</li>
+              <li>31/7/26 - 6</li>
+            </ul>
           </div>
         </div>
 
@@ -78,6 +70,156 @@
   </div>
 
   <script src="../script.js"></script>
+  <script>
+    (function () {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const textColor = isDark ? '#eaeaea' : '#1a1a2e';
+      const barColor = isDark ? '#90ee90' : '#4361ee';
+      const goalColor = '#ff6b6b';
+      const gridColor = isDark ? '#2a2a4a' : '#e0e0e0';
+
+      // shared tooltip element
+      const tooltip = document.createElement('div');
+      Object.assign(tooltip.style, {
+        position: 'fixed', background: 'rgba(0,0,0,0.75)', color: '#fff',
+        padding: '5px 10px', borderRadius: '5px', fontSize: '14px',
+        pointerEvents: 'none', display: 'none', zIndex: 9999,
+      });
+      document.body.appendChild(tooltip);
+
+      function drawBarChart(canvasId, entries, goal, formatY, yTicks) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        const dpr = window.devicePixelRatio || 1;
+        const W = canvas.offsetWidth;
+        const H = canvas.offsetHeight;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+
+        const pad = { top: 24, right: 20, bottom: 36, left: 46 };
+        const cW = W - pad.left - pad.right;
+        const cH = H - pad.top - pad.bottom;
+        const maxVal = yTicks ? yTicks[yTicks.length - 1] : Math.max(...entries.map(e => e.value), goal) * 1.15;
+        const n = entries.length;
+
+        const px = i => pad.left + (i / (n - 1)) * cW;
+        const py = v => pad.top + cH - (v / maxVal) * cH;
+
+        // horizontal grid lines
+        const ticks = yTicks || [0, 1, 2, 3, 4].map(i => (maxVal / 4) * i);
+        ctx.lineWidth = 0.5;
+        ticks.forEach(tick => {
+          const y = py(tick);
+          ctx.strokeStyle = gridColor;
+          ctx.beginPath();
+          ctx.moveTo(pad.left, y);
+          ctx.lineTo(pad.left + cW, y);
+          ctx.stroke();
+          ctx.fillStyle = textColor;
+          ctx.font = '10px Segoe UI';
+          ctx.textAlign = 'right';
+          ctx.fillText(formatY(tick), pad.left - 5, y + 3);
+        });
+
+        // goal line
+        const goalY = py(goal);
+        ctx.setLineDash([5, 4]);
+        ctx.strokeStyle = goalColor;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(pad.left, goalY);
+        ctx.lineTo(pad.left + cW, goalY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = goalColor;
+        ctx.font = 'bold 9px Segoe UI';
+        ctx.textAlign = 'left';
+        ctx.fillText('Goal', pad.left + 3, goalY - 4);
+
+        // filled area under line
+        ctx.beginPath();
+        ctx.moveTo(px(0), py(entries[0].value));
+        entries.forEach((e, i) => ctx.lineTo(px(i), py(e.value)));
+        ctx.lineTo(px(n - 1), pad.top + cH);
+        ctx.lineTo(px(0), pad.top + cH);
+        ctx.closePath();
+        ctx.fillStyle = isDark ? 'rgba(144,238,144,0.12)' : 'rgba(67,97,238,0.10)';
+        ctx.fill();
+
+        // line
+        ctx.beginPath();
+        ctx.moveTo(px(0), py(entries[0].value));
+        entries.forEach((e, i) => ctx.lineTo(px(i), py(e.value)));
+        ctx.strokeStyle = isDark ? '#90ee90' : '#4361ee';
+        ctx.lineWidth = 2;
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+
+        const points = entries.map((e, i) => ({ x: px(i), y: py(e.value), date: e.date, fullDate: e.fullDate, label: e.label }));
+        points.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+          ctx.fillStyle = isDark ? '#90ee90' : '#4361ee';
+          ctx.fill();
+        });
+
+        // hover: show date + value tooltip near matching point
+        canvas.onmousemove = ev => {
+          const rect = canvas.getBoundingClientRect();
+          const mx = (ev.clientX - rect.left) * (W / rect.width);
+          const my = (ev.clientY - rect.top) * (H / rect.height);
+          const hit = points.find(p => Math.hypot(mx - p.x, my - p.y) < 14);
+          if (hit) {
+            tooltip.textContent = hit.label + ' — ' + hit.fullDate;
+            tooltip.style.display = 'block';
+            tooltip.style.left = (ev.clientX + 12) + 'px';
+            tooltip.style.top  = (ev.clientY - 20) + 'px';
+          } else {
+            tooltip.style.display = 'none';
+          }
+        };
+        canvas.onmouseleave = () => { tooltip.style.display = 'none'; };
+      }
+
+      // parse list items (newest-first) into chart entries (oldest-first)
+      function parseList(listId, parseValue) {
+        return Array.from(document.querySelectorAll('#' + listId + ' li'))
+          .map(li => {
+            const sep = li.textContent.indexOf(' - ');
+            if (sep === -1) return null;
+            const rawDate = li.textContent.slice(0, sep).trim();
+            const rawVal  = li.textContent.slice(sep + 3).trim();
+            const dp = rawDate.split('/');
+            const date = dp[0] + '/' + dp[1];         // short label for chart spacing
+            const fullDate = dp[0] + '/' + dp[1] + '/' + dp[2]; // full date for tooltip
+            return parseValue(rawVal, date, fullDate);
+          })
+          .filter(Boolean)
+          .reverse();
+      }
+
+      const plankEntries = parseList('plank-list', (raw, date, fullDate) => {
+        const m = raw.match(/(\d+):(\d+)/);
+        if (!m) return null;
+        return { date, fullDate, value: +m[1] * 60 + +m[2], label: +m[1] + ':' + m[2] };
+      });
+      drawBarChart('plank-chart', plankEntries, 300, v => Math.round(v / 60), [0, 60, 120, 180, 240, 300]);
+      const plankMax = Math.max(...plankEntries.map(e => e.value));
+      document.getElementById('plank-best').textContent =
+        'Best: ' + Math.floor(plankMax / 60) + ':' + String(plankMax % 60).padStart(2, '0');
+
+      const pushupEntries = parseList('pushup-list', (raw, date, fullDate) => {
+        const m = raw.match(/(\d+)/);
+        if (!m) return null;
+        return { date, fullDate, value: +m[1], label: m[1] };
+      });
+      drawBarChart('pushup-chart', pushupEntries, 20, v => Math.round(v), [0, 5, 10, 15, 20]);
+      const pushupMax = Math.max(...pushupEntries.map(e => e.value));
+      document.getElementById('pushup-best').textContent = 'Best: ' + pushupMax;
+    })();
+  </script>
 
 
 </body>
