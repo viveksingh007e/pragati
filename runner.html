@@ -32,8 +32,33 @@
 
     </div>
     <div class="section">
-      <h2>Run History Logs:</h2>
-
+      <h3>Running Progress</h3>
+      <canvas id="run-chart" style="width:100%; height:300px; display:block;"></canvas>
+      <div style="display:none;">
+        <ul id="run-list">
+          <li>6/8/26 - 35</li>
+          <li>4/8/26 - 35</li>
+          <li>2/8/26 - 35</li>
+          <li>31/7/26 - 30</li>
+          <li>26/7/26 - 25</li>
+          <li>13/6/26 - 15</li>
+          <li>4/5/26 - 14</li>
+          <li>30/4/26 - 14</li>
+          <li>29/4/26 - 13</li>
+          <li>28/4/26 - 13</li>
+          <li>26/4/26 - 13</li>
+          <li>18/4/26 - 13</li>
+          <li>17/4/26 - 13</li>
+          <li>13/4/26 - 13</li>
+          <li>11/4/26 - 12</li>
+          <li>9/4/26 - 12</li>
+          <li>4/4/26 - 11</li>
+        </ul>
+      </div>
+    </div>
+    <div class="section">
+      <h2 id="run-log-toggle" style="cursor:pointer; user-select:none;">Run History Logs: <span id="run-log-arrow" style="font-size:0.85em;">▶</span></h2>
+      <div id="run-log-body" style="display:none;">
       <p>
         Aug 2, 2026: 35 min completed. yayyyy. no black tshirt and no running in Sun. brutal truth
       </p><br />
@@ -103,15 +128,150 @@
         minutes are really long. I was thinking of running in the park beside that Wekend Bar. It will be new and fun.
       </p>
 
+      </div>
     </div>
   </div>
 
   <script src="data.js"></script>
   <script src="script.js"></script>
   <script>
-    document.getElementById('streakDays').textContent = RUNNER_DATA.streakDays;
-    document.getElementById('lastRun').textContent = RUNNER_DATA.lastRun;
+    const _sd = document.getElementById('streakDays');
+    const _lr = document.getElementById('lastRun');
+    if (_sd) _sd.textContent = RUNNER_DATA.streakDays;
+    if (_lr) _lr.textContent = RUNNER_DATA.lastRun;
 
+    document.getElementById('run-log-toggle').addEventListener('click', function () {
+      const body = document.getElementById('run-log-body');
+      const arrow = document.getElementById('run-log-arrow');
+      const open = body.style.display !== 'none';
+      body.style.display = open ? 'none' : 'block';
+      arrow.textContent = open ? '▶' : '▼';
+    });
+  </script>
+  <script>
+    (function () {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const textColor = isDark ? '#eaeaea' : '#1a1a2e';
+      const goalColor = '#ff6b6b';
+      const gridColor = isDark ? '#2a2a4a' : '#e0e0e0';
+
+      const tooltip = document.createElement('div');
+      Object.assign(tooltip.style, {
+        position: 'fixed', background: 'rgba(0,0,0,0.75)', color: '#fff',
+        padding: '5px 10px', borderRadius: '5px', fontSize: '14px',
+        pointerEvents: 'none', display: 'none', zIndex: 9999,
+      });
+      document.body.appendChild(tooltip);
+
+      function drawRunChart(canvasId, entries, goal, yTicks) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) return;
+        const dpr = window.devicePixelRatio || 1;
+        const W = canvas.offsetWidth;
+        const H = canvas.offsetHeight;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+
+        const pad = { top: 24, right: 20, bottom: 16, left: 46 };
+        const cW = W - pad.left - pad.right;
+        const cH = H - pad.top - pad.bottom;
+        const maxVal = yTicks[yTicks.length - 1];
+        const n = entries.length;
+
+        const px = i => pad.left + (i / (n - 1)) * cW;
+        const py = v => pad.top + cH - (v / maxVal) * cH;
+
+        // grid lines
+        ctx.lineWidth = 0.5;
+        yTicks.forEach(tick => {
+          const y = py(tick);
+          ctx.strokeStyle = gridColor;
+          ctx.beginPath();
+          ctx.moveTo(pad.left, y);
+          ctx.lineTo(pad.left + cW, y);
+          ctx.stroke();
+          ctx.fillStyle = textColor;
+          ctx.font = '10px Segoe UI';
+          ctx.textAlign = 'right';
+          ctx.fillText(tick + 'm', pad.left - 5, y + 3);
+        });
+
+        // goal line
+        const goalY = py(goal);
+        ctx.setLineDash([5, 4]);
+        ctx.strokeStyle = goalColor;
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(pad.left, goalY);
+        ctx.lineTo(pad.left + cW, goalY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = goalColor;
+        ctx.font = 'bold 9px Segoe UI';
+        ctx.textAlign = 'left';
+        ctx.fillText('Goal 60m', pad.left + 3, goalY - 4);
+
+        // filled area
+        ctx.beginPath();
+        ctx.moveTo(px(0), py(entries[0].value));
+        entries.forEach((e, i) => ctx.lineTo(px(i), py(e.value)));
+        ctx.lineTo(px(n - 1), pad.top + cH);
+        ctx.lineTo(px(0), pad.top + cH);
+        ctx.closePath();
+        ctx.fillStyle = isDark ? 'rgba(144,238,144,0.12)' : 'rgba(67,97,238,0.10)';
+        ctx.fill();
+
+        // line
+        ctx.beginPath();
+        ctx.moveTo(px(0), py(entries[0].value));
+        entries.forEach((e, i) => ctx.lineTo(px(i), py(e.value)));
+        ctx.strokeStyle = isDark ? '#90ee90' : '#4361ee';
+        ctx.lineWidth = 2;
+        ctx.lineJoin = 'round';
+        ctx.stroke();
+
+        // dots + hover
+        const points = entries.map((e, i) => ({ x: px(i), y: py(e.value), fullDate: e.fullDate, value: e.value }));
+        points.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+          ctx.fillStyle = isDark ? '#90ee90' : '#4361ee';
+          ctx.fill();
+        });
+
+        canvas.onmousemove = ev => {
+          const rect = canvas.getBoundingClientRect();
+          const mx = (ev.clientX - rect.left) * (W / rect.width);
+          const my = (ev.clientY - rect.top) * (H / rect.height);
+          const hit = points.find(p => Math.hypot(mx - p.x, my - p.y) < 14);
+          if (hit) {
+            tooltip.textContent = hit.fullDate + ' — ' + hit.value + ' min';
+            tooltip.style.display = 'block';
+            tooltip.style.left = (ev.clientX + 12) + 'px';
+            tooltip.style.top = (ev.clientY - 20) + 'px';
+          } else {
+            tooltip.style.display = 'none';
+          }
+        };
+        canvas.onmouseleave = () => { tooltip.style.display = 'none'; };
+      }
+
+      const entries = Array.from(document.querySelectorAll('#run-list li'))
+        .map(li => {
+          const sep = li.textContent.indexOf(' - ');
+          if (sep === -1) return null;
+          const rawDate = li.textContent.slice(0, sep).trim();
+          const rawVal = li.textContent.slice(sep + 3).trim();
+          const dp = rawDate.split('/');
+          return { fullDate: dp[0] + '/' + dp[1] + '/' + dp[2], value: +rawVal };
+        })
+        .filter(Boolean)
+        .reverse();
+
+      drawRunChart('run-chart', entries, 60, [0, 10, 20, 30, 40, 50, 60]);
+    })();
   </script>
 
 </body>
