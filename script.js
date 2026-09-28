@@ -4,15 +4,13 @@ const html = document.documentElement;
 
 function updateDays() {
 
-  let eX = document.getElementById("daysXer");
+  
   let eR = document.getElementById("daysRun");
 
-  if (!eX || !eR) return;
-
-  let numbersEx = eX.textContent.match(/\d+/g) || [];
+  if (!eR) return;
+  
   let numbersRun = eR.textContent.match(/\d+/g) || [];
 
-  document.getElementById("xerCount").textContent = numbersEx.length;
   document.getElementById("runCount").textContent = numbersRun.length + 68;
   document.getElementById("runMonCount").textContent = numbersRun.length;
 
