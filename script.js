@@ -46,8 +46,4 @@ function openWhiteboard() {
   const win = window.open('', '_blank');
   win.location.href = 'https://www.tldraw.com/f/9BBslhpFsd5ha0Wia0XS2?d=v-803.-401.2839.1341.page';
 }
-function openChallenges() {
-  window.location.href= 'ContentFiles/challenges.html';
-}
-
 
