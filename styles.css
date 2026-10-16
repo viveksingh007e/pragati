@@ -145,6 +145,43 @@ header h1 {
   margin-bottom: 1rem;
 }
 
+.exercise-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.exercise-tab {
+  max-width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.exercise-tab:hover,
+.exercise-tab[aria-selected="true"] {
+  color: var(--accent);
+  background: rgba(144, 238, 144, 0.15);
+}
+
+.exercise-tab[aria-selected="true"] {
+  border-bottom-color: var(--accent);
+}
+
+.exercise-tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
 .exercise-container {
   display: flex;
   align-items: flex-start;

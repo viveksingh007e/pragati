@@ -24,11 +24,9 @@
         </div>
 
         <div class="section">
-            <div class="day-pill" id="activeDay">CORE</div>
-            <div class="exercise-container">
-                <button class="circle-btn" id="prevDayBtn" aria-label="Show previous day">&#8592;</button>
+            <div class="exercise-tabs" id="exerciseTabs" role="tablist" aria-label="Exercise plans"></div>
+            <div class="exercise-container" id="exercisePanel" role="tabpanel" tabindex="0">
                 <ul class="exercise-list" id="exerciseItems"></ul>
-                <button class="circle-btn" id="nextDayBtn" aria-label="Show next day">&#8594;</button>
             </div>
         </div>
     </div>
@@ -106,14 +104,46 @@
 
         let currentDayIndex = 0;
 
-        const activeDayEl = document.getElementById("activeDay");
+        const exerciseTabsEl = document.getElementById("exerciseTabs");
+        const exercisePanelEl = document.getElementById("exercisePanel");
         const exerciseItemsEl = document.getElementById("exerciseItems");
-        const prevDayBtn = document.getElementById("prevDayBtn");
-        const nextDayBtn = document.getElementById("nextDayBtn");
+
+        dayPlans.forEach((plan, index) => {
+            const tab = document.createElement("button");
+            tab.type = "button";
+            tab.className = "exercise-tab";
+            tab.id = `exercise-tab-${index}`;
+            tab.textContent = plan.type;
+            tab.setAttribute("role", "tab");
+            tab.setAttribute("aria-controls", "exercisePanel");
+            tab.addEventListener("click", () => {
+                currentDayIndex = index;
+                renderDayAgenda();
+            });
+            tab.addEventListener("keydown", (event) => {
+                let nextIndex = index;
+                if (event.key === "ArrowRight") nextIndex = (index + 1) % dayPlans.length;
+                else if (event.key === "ArrowLeft") nextIndex = (index - 1 + dayPlans.length) % dayPlans.length;
+                else if (event.key === "Home") nextIndex = 0;
+                else if (event.key === "End") nextIndex = dayPlans.length - 1;
+                else return;
+
+                event.preventDefault();
+                currentDayIndex = nextIndex;
+                renderDayAgenda();
+                exerciseTabsEl.children[nextIndex].focus();
+            });
+            exerciseTabsEl.appendChild(tab);
+        });
 
         function renderDayAgenda() {
             const currentPlan = dayPlans[currentDayIndex];
-            activeDayEl.textContent = currentPlan.type;
+            Array.from(exerciseTabsEl.children).forEach((tab, index) => {
+                const isActive = index === currentDayIndex;
+                tab.setAttribute("aria-selected", String(isActive));
+                tab.tabIndex = isActive ? 0 : -1;
+            });
+            exercisePanelEl.setAttribute("aria-labelledby", `exercise-tab-${currentDayIndex}`);
 
             exerciseItemsEl.innerHTML = "";
             currentPlan.items.forEach((item) => {
@@ -132,16 +162,6 @@
                 exerciseItemsEl.appendChild(listItem);
             });
         }
-
-        prevDayBtn.addEventListener("click", () => {
-            currentDayIndex = (currentDayIndex - 1 + dayPlans.length) % dayPlans.length;
-            renderDayAgenda();
-        });
-
-        nextDayBtn.addEventListener("click", () => {
-            currentDayIndex = (currentDayIndex + 1) % dayPlans.length;
-            renderDayAgenda();
-        });
 
         renderDayAgenda();
 
