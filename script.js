@@ -11,7 +11,7 @@ function updateDays() {
   
   let numbersRun = eR.textContent.match(/\d+/g) || [];
 
-  document.getElementById("runCount").textContent = numbersRun.length + 71;
+  document.getElementById("runCount").textContent = numbersRun.length + 80; //this is till october 26
   document.getElementById("runMonCount").textContent = numbersRun.length;
 
 }
